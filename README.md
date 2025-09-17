@@ -6,7 +6,7 @@ Transform waste into sustainable energy using cutting-edge AI technology. GreenT
 
 ## 🚀 Live Demo
 
-**URL**: https://lovable.dev/projects/7a11d2b9-7369-4946-b957-3ee86845b1cd
+**URL**:
 
 ## 📋 Table of Contents
 
@@ -570,8 +570,6 @@ User Interface ← State Management ← API Response ← JSON Response ← Predi
 - **Migration failures**: Review SQL syntax and dependencies
 
 ### Getting Help
-- Check the [Lovable Documentation](https://docs.lovable.dev)
-- Join the [Lovable Discord Community](https://discord.com/channels/1119885301872070706/1280461670979993613)
 - Create an issue in this repository
 - Contact the development team
 
@@ -581,14 +579,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- **Lovable Platform** - For the amazing development experience
 - **Supabase** - For the powerful backend infrastructure
 - **OpenAI** - For the AI capabilities
 - **shadcn/ui** - For the beautiful component library
 - **Tailwind CSS** - For the utility-first styling
 
 ---
-
-**Built with ❤️ using Lovable, React, and AI**
-
-For the latest updates and documentation, visit: https://lovable.dev/projects/7a11d2b9-7369-4946-b957-3ee86845b1cd
