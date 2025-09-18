@@ -62,24 +62,49 @@ export const SimpleLineChart = ({ data, dataKey, color, name }: {
   </ResponsiveContainer>
 );
 
-export const SimplePieChart = ({ data }: {
+export const SimplePieChart = ({ data, onSegmentClick }: {
   data: { name: string; value: number; color: string }[];
-}) => (
-  <ResponsiveContainer width="100%" height="100%">
-    <PieChart>
-      <Pie
-        data={data}
-        cx="50%"
-        cy="50%"
-        outerRadius={80}
-        dataKey="value"
-        label={({ name, value }) => `${name}: ${value}%`}
-      >
-        {data.map((entry, index) => (
-          <Cell key={`cell-${index}`} fill={entry.color} />
-        ))}
-      </Pie>
-      <Tooltip />
-    </PieChart>
-  </ResponsiveContainer>
-);
+  onSegmentClick?: (data: any, index: number) => void;
+}) => {
+  const [hoveredIndex, setHoveredIndex] = React.useState<number | null>(null);
+
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <PieChart>
+        <Pie
+          data={data}
+          cx="50%"
+          cy="50%"
+          outerRadius={hoveredIndex !== null ? 85 : 80}
+          dataKey="value"
+          label={({ name, value }) => `${name}: ${value}%`}
+          onClick={onSegmentClick}
+          onMouseEnter={(_, index) => setHoveredIndex(index)}
+          onMouseLeave={() => setHoveredIndex(null)}
+          style={{ cursor: onSegmentClick ? 'pointer' : 'default' }}
+        >
+          {data.map((entry, index) => (
+            <Cell 
+              key={`cell-${index}`} 
+              fill={entry.color}
+              stroke={hoveredIndex === index ? entry.color : 'none'}
+              strokeWidth={hoveredIndex === index ? 2 : 0}
+              style={{
+                filter: hoveredIndex === index ? 'brightness(1.1)' : 'none',
+                transition: 'all 0.2s ease'
+              }}
+            />
+          ))}
+        </Pie>
+        <Tooltip 
+          contentStyle={{
+            backgroundColor: 'hsl(var(--background))',
+            border: '1px solid hsl(var(--border))',
+            borderRadius: '8px',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+          }}
+        />
+      </PieChart>
+    </ResponsiveContainer>
+  );
+};

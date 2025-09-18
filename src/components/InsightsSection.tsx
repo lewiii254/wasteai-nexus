@@ -85,17 +85,20 @@ const InsightsSection = () => {
             {impactMetrics.map((metric) => {
               const Icon = metric.icon;
               return (
-                <Card key={metric.title} className="p-6 shadow-eco">
+                <Card 
+                  key={metric.title} 
+                  className="p-6 shadow-eco hover:shadow-glow transition-all duration-300 hover:scale-105 cursor-pointer group"
+                >
                   <div className="flex items-center justify-between mb-4">
-                    <div className={`p-2 rounded-lg bg-${metric.color}/10`}>
-                      <Icon className={`h-5 w-5 text-${metric.color}`} />
+                    <div className={`p-2 rounded-lg bg-${metric.color}/10 group-hover:bg-${metric.color}/20 transition-colors`}>
+                      <Icon className={`h-5 w-5 text-${metric.color} group-hover:scale-110 transition-transform`} />
                     </div>
-                    <span className="text-sm font-medium text-success">{metric.change}</span>
+                    <span className="text-sm font-medium text-success group-hover:text-primary transition-colors">{metric.change}</span>
                   </div>
                   <div className="space-y-1">
-                    <h3 className="text-sm font-medium text-muted-foreground">{metric.title}</h3>
+                    <h3 className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">{metric.title}</h3>
                     <div className="flex items-baseline gap-1">
-                      <span className="text-2xl font-bold">{metric.value}</span>
+                      <span className="text-2xl font-bold group-hover:text-primary transition-colors">{metric.value}</span>
                       <span className="text-sm text-muted-foreground">{metric.unit}</span>
                     </div>
                   </div>
@@ -137,10 +140,16 @@ const InsightsSection = () => {
           {/* Bottom Section */}
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Waste Composition */}
-            <Card className="p-6 shadow-eco">
+            <Card className="p-6 shadow-eco hover:shadow-glow transition-all duration-300">
               <h3 className="text-lg font-semibold mb-6">Waste Composition</h3>
               <div className="h-64">
-                <SimplePieChart data={wasteComposition} />
+                <SimplePieChart 
+                  data={wasteComposition} 
+                  onSegmentClick={(data, index) => {
+                    console.log('Clicked segment:', data, index);
+                    // Could trigger detailed view or filtering
+                  }}
+                />
               </div>
             </Card>
 

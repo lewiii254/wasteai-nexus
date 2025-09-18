@@ -86,10 +86,10 @@ const MapSection = () => {
                   {wastePoints.map((point, index) => (
                     <div
                       key={point.id}
-                      className={`absolute w-4 h-4 rounded-full cursor-pointer transform -translate-x-2 -translate-y-2 ${
-                        point.type === 'facility' ? 'bg-primary' :
-                        point.type === 'collection' ? 'bg-accent' : 'bg-energy'
-                      } ${point.id === nearestPoint.id ? 'ring-4 ring-primary/30 animate-pulse' : ''}`}
+                      className={`absolute w-4 h-4 rounded-full cursor-pointer transform -translate-x-2 -translate-y-2 transition-all duration-300 hover:scale-150 hover:z-10 ${
+                        point.type === 'facility' ? 'bg-primary hover:shadow-lg hover:shadow-primary/50' :
+                        point.type === 'collection' ? 'bg-accent hover:shadow-lg hover:shadow-accent/50' : 'bg-energy hover:shadow-lg hover:shadow-energy/50'
+                      } ${point.id === nearestPoint.id ? 'ring-4 ring-primary/30 animate-pulse' : ''} ${selectedPoint?.id === point.id ? 'ring-2 ring-white scale-125' : ''}`}
                       style={{
                         left: `${20 + index * 25}%`,
                         top: `${30 + index * 15}%`
@@ -115,7 +115,15 @@ const MapSection = () => {
                       <span>Recycling Centers</span>
                     </div>
                   </div>
-                  <Button variant="outline" size="sm">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    className="hover:scale-105 active:scale-95 transition-all duration-200"
+                    onClick={() => {
+                      console.log('Centering map on user location');
+                      // Would trigger map centering functionality
+                    }}
+                  >
                     <Navigation className="h-4 w-4 mr-2" />
                     Center on Location
                   </Button>
@@ -159,10 +167,17 @@ const MapSection = () => {
                   )}
                 </div>
 
-                <Button variant="energy" className="w-full mt-4">
-                  <Navigation className="h-4 w-4 mr-2" />
+                <Button 
+                  variant="energy" 
+                  className="w-full mt-4 hover:scale-105 active:scale-95 transition-all duration-300 group"
+                  onClick={() => {
+                    console.log('Getting directions to:', nearestPoint.name);
+                    // Would open directions in map app
+                  }}
+                >
+                  <Navigation className="h-4 w-4 mr-2 group-hover:rotate-12 transition-transform" />
                   Get Directions
-                  <ArrowRight className="h-4 w-4 ml-2" />
+                  <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Card>
 
@@ -173,10 +188,10 @@ const MapSection = () => {
                   {wastePoints.map((point) => (
                     <div
                       key={point.id}
-                      className={`p-3 rounded-lg border cursor-pointer transition-all ${
+                      className={`p-3 rounded-lg border cursor-pointer transition-all duration-300 hover:scale-102 hover:shadow-md ${
                         selectedPoint?.id === point.id 
-                          ? 'border-primary bg-primary/5' 
-                          : 'border-border hover:border-primary/50'
+                          ? 'border-primary bg-primary/5 shadow-glow' 
+                          : 'border-border hover:border-primary/50 hover:bg-muted/50'
                       }`}
                       onClick={() => setSelectedPoint(point)}
                     >

@@ -19,26 +19,43 @@ const Navigation = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-6">
-          <a href="#ai-query" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
+          <button 
+            onClick={() => document.getElementById('ai-query')?.scrollIntoView({ behavior: 'smooth' })}
+            className="flex items-center gap-2 text-foreground hover:text-primary transition-all duration-300 hover:scale-105 active:scale-95"
+          >
             <Bot className="h-4 w-4" />
             AI Assistant
-          </a>
-          <a href="#map" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
+          </button>
+          <button 
+            onClick={() => document.getElementById('map')?.scrollIntoView({ behavior: 'smooth' })}
+            className="flex items-center gap-2 text-foreground hover:text-primary transition-all duration-300 hover:scale-105 active:scale-95"
+          >
             <MapPin className="h-4 w-4" />
             Waste Points
-          </a>
-          <a href="#insights" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
+          </button>
+          <button 
+            onClick={() => document.getElementById('insights')?.scrollIntoView({ behavior: 'smooth' })}
+            className="flex items-center gap-2 text-foreground hover:text-primary transition-all duration-300 hover:scale-105 active:scale-95"
+          >
             <BarChart3 className="h-4 w-4" />
             Insights
-          </a>
-          <a href="#community" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
+          </button>
+          <button 
+            onClick={() => document.getElementById('community')?.scrollIntoView({ behavior: 'smooth' })}
+            className="flex items-center gap-2 text-foreground hover:text-primary transition-all duration-300 hover:scale-105 active:scale-95"
+          >
             <Users className="h-4 w-4" />
             Community
-          </a>
+          </button>
         </div>
 
         {/* CTA Button */}
-        <Button variant="ai" size="lg" className="hidden sm:flex items-center gap-2">
+        <Button 
+          variant="ai" 
+          size="lg" 
+          className="hidden sm:flex items-center gap-2 hover:scale-105 active:scale-95 transition-all duration-300"
+          onClick={() => document.getElementById('ai-query')?.scrollIntoView({ behavior: 'smooth' })}
+        >
           <Mic className="h-4 w-4" />
           Call Waste-Energy AI
         </Button>

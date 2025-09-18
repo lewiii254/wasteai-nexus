@@ -46,13 +46,23 @@ const HeroSection = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
-            <Button variant="hero" size="lg" className="text-lg px-8 py-4 h-auto">
-              <Brain className="h-5 w-5 mr-2" />
+            <Button 
+              variant="hero" 
+              size="lg" 
+              className="text-lg px-8 py-4 h-auto hover:scale-105 active:scale-95 transition-all duration-300 group"
+              onClick={() => document.getElementById('ai-query')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              <Brain className="h-5 w-5 mr-2 group-hover:animate-pulse" />
               Call Waste-Energy AI
-              <ArrowRight className="h-5 w-5 ml-2" />
+              <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Button variant="outline" size="lg" className="text-lg px-8 py-4 h-auto">
-              <Recycle className="h-5 w-5 mr-2" />
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="text-lg px-8 py-4 h-auto hover:scale-105 active:scale-95 transition-all duration-300 group"
+              onClick={() => document.getElementById('insights')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              <Recycle className="h-5 w-5 mr-2 group-hover:rotate-180 transition-transform duration-500" />
               Explore Platform
             </Button>
           </div>

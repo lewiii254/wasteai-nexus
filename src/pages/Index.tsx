@@ -2,6 +2,7 @@ import React from 'react';
 import Navigation from '@/components/Navigation';
 import HeroSection from '@/components/HeroSection';
 import AIQuerySection from '@/components/AIQuerySection';
+import InteractiveDashboard from '@/components/InteractiveDashboard';
 import MapSection from '@/components/MapSection';
 import InsightsSection from '@/components/InsightsSection';
 import CommunitySection from '@/components/CommunitySection';
@@ -13,6 +14,11 @@ const Index = () => {
       <main>
         <HeroSection />
         <AIQuerySection />
+        <section id="dashboard" className="py-20 bg-background">
+          <div className="container mx-auto px-4">
+            <InteractiveDashboard />
+          </div>
+        </section>
         <MapSection />
         <InsightsSection />
         <CommunitySection />
