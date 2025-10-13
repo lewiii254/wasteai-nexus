@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Zap, Recycle, Brain } from 'lucide-react';
+import { ArrowRight, Zap, Recycle, Brain, Leaf, TreePine } from 'lucide-react';
 import heroImage from '@/assets/hero-green-energy.jpg';
 
 const HeroSection = () => {
@@ -39,10 +39,21 @@ const HeroSection = () => {
           </h1>
 
           {/* Subtitle */}
-          <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto text-balance leading-relaxed">
+          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto text-balance leading-relaxed">
             Transform your community's waste management with our intelligent platform. 
             Optimize collection routes, predict energy output, and make every ton count.
           </p>
+
+          {/* Environmental Impact Badge */}
+          <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-success/20 via-primary/20 to-accent/20 border border-success/30 rounded-full mb-12 backdrop-blur-sm">
+            <div className="flex items-center gap-2">
+              <Leaf className="h-5 w-5 text-success animate-pulse" />
+              <TreePine className="h-5 w-5 text-primary" />
+            </div>
+            <p className="text-base font-medium text-foreground">
+              <span className="font-bold text-success">Restoring our planet</span> by preventing land degradation and turning waste into renewable energy - building a greener, healthier Earth for future generations
+            </p>
+          </div>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
@@ -68,7 +79,7 @@ const HeroSection = () => {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-2xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
             <div className="text-center">
               <div className="text-3xl font-bold text-primary mb-2">50,000+</div>
               <div className="text-sm text-muted-foreground">Tons Processed</div>
@@ -80,6 +91,10 @@ const HeroSection = () => {
             <div className="text-center">
               <div className="text-3xl font-bold text-energy mb-2">95%</div>
               <div className="text-sm text-muted-foreground">Efficiency Rate</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-success mb-2">30K</div>
+              <div className="text-sm text-muted-foreground">Hectares Protected</div>
             </div>
           </div>
         </div>
