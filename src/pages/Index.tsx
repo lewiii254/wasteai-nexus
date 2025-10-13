@@ -5,6 +5,7 @@ import AIQuerySection from '@/components/AIQuerySection';
 import InteractiveDashboard from '@/components/InteractiveDashboard';
 import MapSection from '@/components/MapSection';
 import InsightsSection from '@/components/InsightsSection';
+import LandRestorationSection from '@/components/LandRestorationSection';
 import CommunitySection from '@/components/CommunitySection';
 
 const Index = () => {
@@ -21,6 +22,7 @@ const Index = () => {
         </section>
         <MapSection />
         <InsightsSection />
+        <LandRestorationSection />
         <CommunitySection />
       </main>
       
