@@ -197,7 +197,7 @@ const InsightsSection = () => {
                       🌱 Fighting Land Degradation
                     </p>
                     <p className="text-sm text-foreground">
-                      By keeping waste out of landfills, we're protecting soil health and preventing contamination of 30,000+ hectares of land
+                      By keeping waste out of landfills, we're protecting soil health and preventing contamination of 35,420+ hectares of land. Our initiatives have resulted in a 45% increase in biodiversity and 12,500 tons/year of carbon sequestration through restored vegetation.
                     </p>
                   </div>
                 </div>

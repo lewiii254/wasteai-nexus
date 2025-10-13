@@ -1,7 +1,40 @@
 import React, { useState } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { MapPin, Navigation, Clock, Zap, ArrowRight } from 'lucide-react';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+
+// Fix for default marker icons in react-leaflet
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+
+const DefaultIcon = L.icon({
+  iconUrl: icon,
+  shadowUrl: iconShadow,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
+
+// Custom colored markers
+const createCustomIcon = (color: string) => {
+  return L.divIcon({
+    className: 'custom-div-icon',
+    html: `<div style="background-color: ${color}; width: 24px; height: 24px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.3);"></div>`,
+    iconSize: [24, 24],
+    iconAnchor: [12, 12],
+  });
+};
+
+// Component to handle map centering
+function CenterMapOnLocation({ position }: { position: [number, number] }) {
+  const map = useMap();
+  map.setView(position, 13);
+  return null;
+}
 
 interface WastePoint {
   id: string;
@@ -16,6 +49,7 @@ interface WastePoint {
 
 const MapSection = () => {
   const [selectedPoint, setSelectedPoint] = useState<WastePoint | null>(null);
+  const [mapCenter, setMapCenter] = useState<[number, number]>([40.7128, -74.0060]);
   
   const wastePoints: WastePoint[] = [
     {
@@ -48,6 +82,15 @@ const MapSection = () => {
     }
   ];
 
+  const getMarkerColor = (type: string) => {
+    switch (type) {
+      case 'facility': return 'hsl(var(--primary))';
+      case 'collection': return 'hsl(var(--accent))';
+      case 'recycling': return 'hsl(var(--energy))';
+      default: return 'hsl(var(--primary))';
+    }
+  };
+
   const nearestPoint = wastePoints.reduce((nearest, point) => 
     point.distance < nearest.distance ? point : nearest
   );
@@ -67,36 +110,55 @@ const MapSection = () => {
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
-            {/* Map Placeholder */}
+            {/* Real Interactive Map */}
             <div className="lg:col-span-2">
               <Card className="p-6 shadow-eco">
-                <div className="relative h-96 bg-gradient-to-br from-muted/50 to-secondary/30 rounded-lg overflow-hidden">
-                  {/* Map Placeholder */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center">
-                      <MapPin className="h-16 w-16 text-primary mx-auto mb-4" />
-                      <h3 className="text-xl font-semibold mb-2">Interactive Map</h3>
-                      <p className="text-muted-foreground">
-                        Mapbox/Google Maps integration would display here
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Mock Map Points */}
-                  {wastePoints.map((point, index) => (
-                    <div
-                      key={point.id}
-                      className={`absolute w-4 h-4 rounded-full cursor-pointer transform -translate-x-2 -translate-y-2 transition-all duration-300 hover:scale-150 hover:z-10 ${
-                        point.type === 'facility' ? 'bg-primary hover:shadow-lg hover:shadow-primary/50' :
-                        point.type === 'collection' ? 'bg-accent hover:shadow-lg hover:shadow-accent/50' : 'bg-energy hover:shadow-lg hover:shadow-energy/50'
-                      } ${point.id === nearestPoint.id ? 'ring-4 ring-primary/30 animate-pulse' : ''} ${selectedPoint?.id === point.id ? 'ring-2 ring-white scale-125' : ''}`}
-                      style={{
-                        left: `${20 + index * 25}%`,
-                        top: `${30 + index * 15}%`
-                      }}
-                      onClick={() => setSelectedPoint(point)}
+                <div className="relative h-96 rounded-lg overflow-hidden">
+                  <MapContainer 
+                    center={mapCenter} 
+                    zoom={13} 
+                    style={{ height: '100%', width: '100%' }}
+                    scrollWheelZoom={true}
+                  >
+                    <TileLayer
+                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-                  ))}
+                    <CenterMapOnLocation position={mapCenter} />
+                    {wastePoints.map((point) => (
+                      <Marker 
+                        key={point.id} 
+                        position={point.coordinates}
+                        icon={createCustomIcon(getMarkerColor(point.type))}
+                        eventHandlers={{
+                          click: () => setSelectedPoint(point),
+                        }}
+                      >
+                        <Popup>
+                          <div className="p-2">
+                            <h3 className="font-semibold">{point.name}</h3>
+                            <p className="text-sm text-muted-foreground">
+                              Type: {point.type}
+                            </p>
+                            <p className="text-sm">
+                              Capacity: {point.capacity}T
+                            </p>
+                            {point.energyOutput && (
+                              <p className="text-sm font-medium text-accent">
+                                Energy: {point.energyOutput} kWh/day
+                              </p>
+                            )}
+                            <p className="text-sm">
+                              Status: <span className={
+                                point.status === 'active' ? 'text-success' :
+                                point.status === 'full' ? 'text-warning' : 'text-destructive'
+                              }>{point.status}</span>
+                            </p>
+                          </div>
+                        </Popup>
+                      </Marker>
+                    ))}
+                  </MapContainer>
                 </div>
 
                 {/* Map Controls */}
@@ -120,8 +182,8 @@ const MapSection = () => {
                     size="sm"
                     className="hover:scale-105 active:scale-95 transition-all duration-200"
                     onClick={() => {
-                      console.log('Centering map on user location');
-                      // Would trigger map centering functionality
+                      // Center on nearest point
+                      setMapCenter(nearestPoint.coordinates);
                     }}
                   >
                     <Navigation className="h-4 w-4 mr-2" />
