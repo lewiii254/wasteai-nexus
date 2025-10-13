@@ -191,6 +191,15 @@ const InsightsSection = () => {
                       Reduced carbon footprint by 8.75 tons CO₂
                     </p>
                   </div>
+
+                  <div className="p-4 bg-gradient-to-r from-success/20 to-primary/20 rounded-lg border border-success/30">
+                    <p className="text-sm font-semibold text-success mb-1">
+                      🌱 Fighting Land Degradation
+                    </p>
+                    <p className="text-sm text-foreground">
+                      By keeping waste out of landfills, we're protecting soil health and preventing contamination of 30,000+ hectares of land
+                    </p>
+                  </div>
                 </div>
               </div>
             </Card>
