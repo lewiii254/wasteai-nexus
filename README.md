@@ -6,7 +6,7 @@ Transform waste into sustainable energy using cutting-edge AI technology. GreenT
 
 ## 🚀 Live Demo
 
-**URL**:
+**URL**: https://wasteai-nexus.vercel.app/
 
 ## 📋 Table of Contents
 
